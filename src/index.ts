@@ -2,6 +2,7 @@ import * as ex from 'excalibur';
 import * as logger from "./utils/logger";
 
 import { Paddle } from './actors/paddle'
+import { Brick } from './actors/brick'
 import { Ball } from './actors/ball'
 
 function newGame(): ex.Engine {
@@ -18,9 +19,13 @@ function newGame(): ex.Engine {
 function main() {
   const game = newGame()
 
+  logger.appendLogsToScreen(game)
+
   game.add(new Paddle(150, game.drawHeight-40, 200, 20, ex.Color.Chartreuse))
 
-  logger.appendLogsToScreen(game)
+  // TODO: Create multiple bricks in a loop. Keep a list for tracking win condition.
+  const brick = new Brick(game.drawWidth / 2, 40, 200, 20, 3)
+  game.add(brick)
 
   const ball = new Ball(100, 300, 10, ex.Color.Red)
   game.add(ball)
