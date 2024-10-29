@@ -13,9 +13,25 @@ export class Ball extends ex.Actor {
       collisionType: ex.CollisionType.Passive })
   }
 
+  /** `strike`ing a `Ball` "adds" a `velocity` to its current velocity,
+      relative to its current direction.
+      That is, striking with `velocity` <10,20> would increase the absolute value
+      of the ball's x velocity by 10 and the absolute value of its y velocity by 20.
+      So providing positive values in `velocity` will always "speed the ball up".
+      To decrease the ball's velocity, provide negative values for `velocity`.*/
   public strike(velocity: ex.Vector) {
-    // TODO: Instead "add" velocities, acceleration, etc. (maintaining current direction)
-    this.vel = velocity
+    // Orient `velocity` to the current quadrant of movement
+    if (this.vel.x < 0) {
+      velocity.x *= -1
+    }
+    if (this.vel.y < 0) {
+      velocity.y *= -1
+    }
+
+    this.vel.x += velocity.x
+    this.vel.y += velocity.y
+
+    // TODO: Handle acceleration, etc.
   }
 
   /** `serve`ing a `Ball` immediately cancels its current movement,

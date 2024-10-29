@@ -16,7 +16,8 @@ export class Paddle extends ex.Actor implements Bouncer {
   public bounce(b: Ball) {
     logger.info("A paddle has bounced a ball")
 
-    b.strike(ex.vec(b.vel.x + 100, b.vel.y - 100)) // Note: temporary implicit assumption ball should move "up and right"
+    // Speed the ball up a bit
+    b.strike(ex.vec(10, 10))
   }
 
   public update(engine: ex.Engine, delta: number): void {
@@ -24,14 +25,14 @@ export class Paddle extends ex.Actor implements Bouncer {
       engine.input.keyboard.isHeld(ex.Keys.A) ||
       engine.input.keyboard.isHeld(ex.Keys.Left)
     ) {
-      this.pos.x -= 1
+      this.pos.x -= 4
     }
 
     if (
       engine.input.keyboard.isHeld(ex.Keys.D) ||
       engine.input.keyboard.isHeld(ex.Keys.Right)
     ) {
-      this.pos.x += 1
+      this.pos.x += 4
     }
 
     // Flip to opposite side
