@@ -25,7 +25,7 @@ export class Brick extends ex.Actor implements Bouncer {
   }
 
   private takeDamage(damage: number) {
-    if (damage > this.health) {
+    if (damage >= this.health) {
       this.kill()
       return
     }

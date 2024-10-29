@@ -23,9 +23,23 @@ function main() {
 
   game.add(new Paddle(150, game.drawHeight-40, 200, 20, ex.Color.Chartreuse))
 
-  // TODO: Create multiple bricks in a loop. Keep a list for tracking win condition.
-  const brick = new Brick(game.drawWidth / 2, 40, 200, 20, 3)
-  game.add(brick)
+  const rows = 3
+  const columns = 3
+  const spacing = 20
+  const width = (game.drawWidth - (spacing * (2 + columns - 1))) / columns
+  const height = 30
+  const bricks: Brick[] = []
+  for (let row = 0; row < rows; row++) {
+    for (let column = 0; column < columns; column++) {
+      // Offset by spacing (away from the screen edge) plus half the brick (since entities are anchored at their center)
+      let xOffset = spacing + width / 2
+      let yOffset = spacing + height / 2
+      let health = rows - row
+      let brick = new Brick(xOffset + column * (width + spacing), yOffset + row * (height + spacing), width, height, health)
+      game.add(brick)
+      bricks.push(brick)
+    }
+  }
 
   const ball = new Ball(100, 300, 10, ex.Color.Red)
   game.add(ball)
