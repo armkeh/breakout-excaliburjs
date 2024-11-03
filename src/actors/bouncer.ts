@@ -8,7 +8,7 @@ export interface Bouncer {
   bounce(b: Actor): void;
 }
 
-/** Type guard for Bouncer objects */
+/** Type guard for `Bouncer` objects */
 export function isBouncer(object: any): object is Bouncer {
   return 'bounce' in object;
 }
