@@ -20,19 +20,25 @@ export class Paddle extends ex.Actor implements Bouncer {
     b.strike(ex.vec(10, 10))
   }
 
+  private withinBounds(proposed: number, min: number, max: number): Boolean {
+    return min < proposed && proposed < max
+  }
+
   public update(engine: ex.Engine, delta: number): void {
+    var proposedX = this.pos.x
+
     if (
       engine.input.keyboard.isHeld(ex.Keys.A) ||
       engine.input.keyboard.isHeld(ex.Keys.Left)
     ) {
-      this.pos.x -= 4
+      proposedX -= 4
     }
 
     if (
       engine.input.keyboard.isHeld(ex.Keys.D) ||
       engine.input.keyboard.isHeld(ex.Keys.Right)
     ) {
-      this.pos.x += 4
+      proposedX += 4
     }
 
     // Flip to opposite side
@@ -40,7 +46,15 @@ export class Paddle extends ex.Actor implements Bouncer {
       engine.input.keyboard.wasPressed(ex.Keys.S) ||
       engine.input.keyboard.wasPressed(ex.Keys.Down)
     ) {
-      this.pos.x = engine.drawWidth - this.pos.x
+      proposedX = engine.drawWidth - proposedX
+    }
+
+    // Rudimentary out-of-bounds protection.
+    // This will fail (probably catastrophically) if paddles have acceleration;
+    // specifically, paddles could become trapped offscreen (partially or fully).
+    // See https://github.com/armkeh/breakout-excaliburjs/issues/5
+    if (this.withinBounds(proposedX, 0 + this.width / 2, engine.drawWidth - this.width / 2)) {
+      this.pos.x = proposedX
     }
 
     super.update(engine, delta)
