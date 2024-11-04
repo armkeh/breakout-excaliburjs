@@ -24,7 +24,7 @@ export class Paddle extends ex.Actor implements Bouncer {
     return min < proposed && proposed < max
   }
 
-  public update(engine: ex.Engine, delta: number): void {
+  public update(engine: ex.Engine, delta: number) {
     var proposedX = this.pos.x
 
     if (

@@ -58,7 +58,7 @@ export class Ball extends ex.Actor {
     super._postupdate(engine, delta)
   }
 
-  public onCollisionStart(self: ex.Collider, other: ex.Collider, side: ex.Side, contact: ex.CollisionContact): void {
+  public onCollisionStart(self: ex.Collider, other: ex.Collider, side: ex.Side, contact: ex.CollisionContact) {
    const intersection = contact.mtv.normalize()
 
     // Only "bounce" once per collision; reset the flag when collision ends (see onCollisionEnd)
@@ -75,7 +75,7 @@ export class Ball extends ex.Actor {
     super.onCollisionStart(self, other, side, contact)
   }
 
-  public onCollisionEnd(self: ex.Collider, other: ex.Collider, side: ex.Side, lastContact: ex.CollisionContact): void {
+  public onCollisionEnd(self: ex.Collider, other: ex.Collider, side: ex.Side, lastContact: ex.CollisionContact) {
     this.colliding = false
 
     if (isBouncer(other.owner)) {
