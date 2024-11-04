@@ -16,13 +16,13 @@ class Breakout extends ex.Engine {
     })
   }
 
-  // Log to screen
-  onInitialize(engine: ex.Engine): void {
+  onInitialize(engine: ex.Engine) {
+    // Log to screen
     logger.appendLogsToScreen(engine)
   }
 
   // Set some "global"(-ish) keybindings, such as pausing and restarting.
-  public onPreUpdate(engine: ex.Engine, _delta: number): void {
+  public onPreUpdate(engine: ex.Engine, _delta: number) {
     if (isRestartable(this.currentScene)) {
       if (engine.input.keyboard.wasPressed(ex.Keys.R)) {
         logger.info("Restarting scene")
