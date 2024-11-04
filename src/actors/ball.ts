@@ -44,7 +44,7 @@ export class Ball extends ex.Actor {
   }
 
   // "Dumb" fallback collision logic for edge of screen (should prefer handling with actors on borders)
-  public _postupdate(engine: ex.Engine, delta: number): void {
+  public update(engine: ex.Engine, delta: number) {
     // Sides of screen, reverse x velocity
     if (this.pos.x < this.width / 2 || this.pos.x + this.width / 2 > engine.drawWidth) {
       this.vel.x *= -1;
@@ -55,7 +55,7 @@ export class Ball extends ex.Actor {
       this.vel.y *= -1;
     }
 
-    super._postupdate(engine, delta)
+    super.update(engine, delta)
   }
 
   public onCollisionStart(self: ex.Collider, other: ex.Collider, side: ex.Side, contact: ex.CollisionContact) {
