@@ -61,6 +61,10 @@ export class BreakoutScene extends ex.Scene implements Populatable, Restartable 
     this.bricks.length = 0
     this.balls.length = 0
 
+    // Clear the win/loss conditions
+    this.winConditions.clear()
+    this.loseConditions.clear()
+
     // Spawn fresh actors
     var winConditionActors: ex.Actor[], loseConditionActors: ex.Actor[]
     { [ this.paddles, this.bricks, this.balls, winConditionActors, loseConditionActors ] = this.spawner(this.engine) }
