@@ -26,15 +26,22 @@ export class Classic extends BreakoutScene {
           let xOffset = spacing + width / 2
           let yOffset = spacing + height / 2
           let health = rows - row
-          let brick = new Brick(xOffset + column * (width + spacing), yOffset + row * (height + spacing), width, height, health)
+          let brick = new Brick(xOffset + column * (width + spacing),
+                                yOffset + row * (height + spacing),
+                                width, height, health,
+                                () => this.removeActor(brick)
+                               )
           bricks.push(brick)
         }
       }
       
-      const ball = new Ball(100, 300, 10, ex.Color.Red)
+      const ball = new Ball(100, 300, 10, ex.Color.Red, () => this.removeActor(ball))
       balls.push(ball)
 
-      return [ paddles, bricks, balls ]
+      let winConditions = bricks
+      let loseConditions = balls
+
+      return [ paddles, bricks, balls, winConditions, loseConditions ]
     }
   }
 }

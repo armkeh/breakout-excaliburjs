@@ -14,8 +14,6 @@ export class Paddle extends ex.Actor implements Bouncer {
   }
 
   public bounce(b: Ball) {
-    logger.info("A paddle has bounced a ball")
-
     // Speed the ball up a bit
     b.strike(ex.vec(10, 10))
   }
@@ -55,6 +53,8 @@ export class Paddle extends ex.Actor implements Bouncer {
     // See https://github.com/armkeh/breakout-excaliburjs/issues/5
     if (this.withinBounds(proposedX, 0 + this.width / 2, engine.drawWidth - this.width / 2)) {
       this.pos.x = proposedX
+    } else {
+      logger.warn(`Preventing paddle with ID ${ this.id } from going out-of-bounds.`)
     }
 
     super.update(engine, delta)
