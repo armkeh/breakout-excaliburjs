@@ -1,6 +1,6 @@
 import { Actor } from 'excalibur'
 
-/** `Bouncer`'s are entities which cause an `Actor` to bounce upon collision
+/** `Bouncer`s are entities which cause an `Actor` to bounce upon collision
     (Whatever that may mean for the actor type).
     For example, both `Paddle`s and `Brick`s cause a `Ball` to bounce. */
 export interface Bouncer {

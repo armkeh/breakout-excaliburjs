@@ -7,9 +7,11 @@ import * as logger from '../utils/logger'
 const defaultColor = ex.Color.DarkGray
 
 export class Brick extends ex.Actor implements Bouncer {
+  private removeFromScene: () => void = () => {}
+
   private health: number = 1
 
-  constructor(x: number, y: number , width: number, height: number, health?: number) {
+  constructor(x: number, y: number , width: number, height: number, health?: number, removeAction?: () => void) {
     super({
       x: x, y: y,
       width: width, height: height,
@@ -19,6 +21,9 @@ export class Brick extends ex.Actor implements Bouncer {
     if (health) {
       this.health = health
     }
+    if (removeAction) {
+      this.removeFromScene = removeAction
+    }
 
     // Initialize color based on health
     this.colorByHealth()
@@ -26,6 +31,8 @@ export class Brick extends ex.Actor implements Bouncer {
 
   private takeDamage(damage: number) {
     if (damage >= this.health) {
+      logger.info(`Brick with ID ${ this.id } destroyed.`)
+      this.removeFromScene()
       this.kill()
       return
     }
@@ -45,8 +52,6 @@ export class Brick extends ex.Actor implements Bouncer {
   }
 
   public bounce(_b: Ball) {
-    logger.info("A ball has bounced off a brick")
-
     this.takeDamage(1)
   }
 }

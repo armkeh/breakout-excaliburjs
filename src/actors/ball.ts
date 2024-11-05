@@ -1,16 +1,23 @@
 import * as ex from 'excalibur'
 
+import * as logger from '../utils/logger'
 import { isBouncer } from './bouncer'
 
 export class Ball extends ex.Actor {
+  private removeFromScene: () => void = () => {}
+
   private colliding = false
 
-  constructor(x : number, y : number , radius : number, color : ex.Color) {
+  constructor(x : number, y : number , radius : number, color : ex.Color, removeAction?: () => void) {
     super({
       x: x, y: y,
       radius: radius,
       color: color,
       collisionType: ex.CollisionType.Passive })
+
+    if (removeAction) {
+      this.removeFromScene = removeAction
+    }
   }
 
   /** `strike`ing a `Ball` "adds" a `velocity` to its current velocity,
@@ -53,6 +60,15 @@ export class Ball extends ex.Actor {
     // Top of screen, reverse y velocity
     if (this.pos.y < this.height / 2) {
       this.vel.y *= -1;
+    }
+
+    // Bottom of screen, trigger removal from scene
+    if (this.pos.y > engine.drawHeight + this.height / 2) {
+      logger.info(`Ball with ID ${ this.id } fell off-screen, trigger removal.`)
+      this.removeFromScene()
+
+      // Stop updating
+      this.kill()
     }
 
     super.update(engine, delta)
