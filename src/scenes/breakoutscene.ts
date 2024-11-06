@@ -26,6 +26,8 @@ export class BreakoutScene extends ex.Scene implements Populatable, Restartable 
   */
   protected spawner: Spawner = () => [ [], [], [], [], [] ]
 
+  private incrementScore: (by: number) => void = (_by: number) => {}
+
   private paddles: Paddle[] = []
   private bricks: Brick[] = []
   private balls: Ball[] = []
@@ -89,6 +91,9 @@ export class BreakoutScene extends ex.Scene implements Populatable, Restartable 
     if (this.winConditions.has(a.id)) {
       logger.info(`Win condition with ID ${ a.id } triggered!`)
       this.winConditions.set(a.id, true)
+
+      // TODO: The actors should be set up to increment score instead, removing its use here.
+      this.incrementScore(100)
     }
     if (this.loseConditions.has(a.id)) {
       logger.info(`Lose condition with ID ${ a.id } triggered!`)
@@ -102,6 +107,10 @@ export class BreakoutScene extends ex.Scene implements Populatable, Restartable 
     if (! Array.from(this.loseConditions.values()).includes(false)) {
       logger.info("You lost the game!")
     }
+  }
+
+  public addScoreboard(incrementScore: (by: number) => void) {
+    this.incrementScore = incrementScore
   }
 
   onInitialize(engine: ex.Engine) {
