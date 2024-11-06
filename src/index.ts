@@ -6,14 +6,20 @@ import { isRestartable } from './scenes/restartable'
 import { Classic } from './scenes/classic'
 
 class Breakout extends ex.Engine {
+  private score: number = 0
+
   constructor() {
-    super({
-      scenes: {
-        'root': {
-          scene: Classic
-        },
-      }
+    super()
+
+    this.score = 0
+
+    const classic = new Classic()
+    classic.addScoreboard((by: number) => {
+      this.score += by
+      logger.info(`Scored ${ by }, new total is ${ this.score }`)
     })
+
+    this.addScene('root', classic)
   }
 
   onInitialize(engine: ex.Engine) {
