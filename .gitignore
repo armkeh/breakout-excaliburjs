@@ -1,8 +1,5 @@
 node_modules
-game/*.js
-game/*.map
-dist/
-binary-dist/
+dist
 .parcel-cache
-
-out/
+loaded.png
+play.png
