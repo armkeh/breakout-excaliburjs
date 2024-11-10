@@ -16,7 +16,7 @@ export class Classic extends BreakoutScene {
       paddles.push(new Paddle(150, engine.drawHeight-40, 200, 20, ex.Color.Chartreuse))
 
       const rows = 3
-      const columns = 3
+      const columns = 5
       const spacing = 20
       const width = (engine.drawWidth - (spacing * (2 + columns - 1))) / columns
       const height = 30
