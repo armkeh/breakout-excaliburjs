@@ -1,1 +1,8 @@
-:TODO:
+#+Title: ~breakout-excaliburjs~: A sample Excalibur.js project in Typescript
+#+Author: Mark Armstrong
+#+Description: A simple Breakout game implemented in Typescript with the Excalibur.js framework
+#+Description: intended as a demonstration of the framework.
+
+* Preamble                                      :ignore:
+
+Play at: https://armkeh.github.io/breakout-excaliburjs/
